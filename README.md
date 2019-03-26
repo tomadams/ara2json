@@ -7,6 +7,6 @@ scl enable rh-python36 bash
 python -V
 
 # Run program
-./ara2json.py ara2.csv arat2.csv
+./ara2json.py ara2.csv arat2.csv > result.json
 
 
