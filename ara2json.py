@@ -1,17 +1,33 @@
 #!/usr/bin/env python
+"""
+Generate json file for sunburst.js from ARA (Allen Reference Atlas) and a list of targets file.
 
-# Copyright © 2019 Tom Adams. All rights reserved.
-#
-# ara2json.py - Generate json file for sunburst.js from ARA (Allen Reference Atlas) and a list of targets file.
-#
-# Both input files are in CSV format with Latin-1 encoding.
+Both input files are in CSV format with Latin-1 encoding.
+
+Input file CSV format:
+A reference table with all the possible brain areas listed as “id” (Column 0), described by their full ‘name’ (Column 1), 'acronym' (Column 2), unique ‘red’ (Column 3), ‘green’ (Column 4) and ‘blue’  (Column 5) value combination, 'structure order’ (Column 6), 'parent id' (Column 7) and 'parent acronym’ (Column 8) (see attached 'ARA2_annotation_structure_info.csv’).
+
+
+The second input file contains a sample dataset with list hits from the reference table along with the ascribed values ‘Count' (Column 9) (see attached ‘List_of_Targets_180830FezfCFA.xlsx’).
+
+
+The resultant output is in json format presents the structure ontology: http://api.brain-map.org/api/v2/structure_graph_download/1.json
+The structure ontology has the following descriptors in common with the attached files: “id”, “parent_structure_id”, “name”, “acronym".  “color_hex_triplet” is a way of describing the unique combinations of red green and blue values.
+
+
+The following webpage has the code needed to generate the sunburst plot: http://api.brain-map.org/examples/sunburst/index.html
+To be specific, the first step will be to import the data using the pipeline in the following link: http://api.brain-map.org/examples/doc/sunburst/import.js.html
+
+
+Copyright © 2019 Tom Adams. All rights reserved.
+"""
 
 import csv
 import json
 import pprint
 import argparse
 
-parser = argparse.ArgumentParser(description='Optional app description')
+parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('ARA', type=str, help='Annotated Structure Info ARA formated CSV file')
 parser.add_argument('TARGETS', type=str, help='List of targets (counts) ARA formated CSV file')
 args = parser.parse_args()
